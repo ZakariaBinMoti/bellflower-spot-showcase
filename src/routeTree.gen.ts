@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BookSpotRouteImport } from './routes/book-spot'
+import { Route as BooknowRouteImport } from './routes/booknow'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EventInfoRouteImport } from './routes/event-info'
 
@@ -30,6 +31,11 @@ const BookSpotRoute = BookSpotRouteImport.update({
   path: '/book-spot',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BooknowRoute = BooknowRouteImport.update({
+  id: '/booknow',
+  path: '/booknow',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/book-spot': typeof BookSpotRoute
+  '/booknow': typeof BooknowRoute
   '/contact': typeof ContactRoute
   '/event-info': typeof EventInfoRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/book-spot': typeof BookSpotRoute
+  '/booknow': typeof BooknowRoute
   '/contact': typeof ContactRoute
   '/event-info': typeof EventInfoRoute
 }
@@ -60,21 +68,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/book-spot': typeof BookSpotRoute
+  '/booknow': typeof BooknowRoute
   '/contact': typeof ContactRoute
   '/event-info': typeof EventInfoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/book-spot' | '/contact' | '/event-info'
+  fullPaths:
+    '/' | '/about' | '/book-spot' | '/booknow' | '/contact' | '/event-info'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/book-spot' | '/contact' | '/event-info'
-  id: '__root__' | '/' | '/about' | '/book-spot' | '/contact' | '/event-info'
+  to: '/' | '/about' | '/book-spot' | '/booknow' | '/contact' | '/event-info'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/book-spot'
+    | '/booknow'
+    | '/contact'
+    | '/event-info'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BookSpotRoute: typeof BookSpotRoute
+  BooknowRoute: typeof BooknowRoute
   ContactRoute: typeof ContactRoute
   EventInfoRoute: typeof EventInfoRoute
 }
@@ -102,6 +120,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookSpotRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/booknow': {
+      id: '/booknow'
+      path: '/booknow'
+      fullPath: '/booknow'
+      preLoaderRoute: typeof BooknowRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -123,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BookSpotRoute: BookSpotRoute,
+  BooknowRoute: BooknowRoute,
   ContactRoute: ContactRoute,
   EventInfoRoute: EventInfoRoute,
 }
