@@ -1,0 +1,12 @@
+import { Link, useRouterState } from '@tanstack/react-router';
+import { useState } from 'react';
+import { ArrowUpRight, Menu, X, Flag, Instagram, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+const nav = [{to:'/',label:'Home'}, {to:'/event-info',label:'Event Info'}, {to:'/book-spot',label:'Book a Spot'}, {to:'/about',label:'About Us'}, {to:'/contact',label:'Contact'}] as const;
+export function Brand() { return <Link to="/" className="brand" aria-label="Bellflower Car Show home"><Flag className="brand-flag" strokeWidth={2.2}/><span>BELLFLOWER<span className="brand-sub">CAR SHOW <span>EST. 1999</span></span></span></Link> }
+export function SiteHeader() {
+ const [open,setOpen] = useState(false); const path = useRouterState({select:s=>s.location.pathname});
+ return <header className="site-header"><div className="container header-inner"><Brand/><nav className="desktop-nav" aria-label="Main navigation">{nav.map(n=><Link key={n.to} to={n.to} className={path===n.to?'nav-link active':'nav-link'}>{n.label}</Link>)}</nav><Button asChild className="header-cta" variant="default"><Link to="/book-spot">Register Your Ride <ArrowUpRight/></Link></Button><Button variant="ghost" size="icon" className="mobile-menu" onClick={()=>setOpen(!open)} aria-label={open?'Close menu':'Open menu'}>{open?<X/>:<Menu/>}</Button></div>{open&&<nav className="mobile-nav" aria-label="Mobile navigation">{nav.map(n=><Link to={n.to} key={n.to} onClick={()=>setOpen(false)} className={path===n.to?'nav-link active':'nav-link'}>{n.label}</Link>)}</nav>}</header>
+}
+export function SiteFooter() { return <footer className="site-footer"><div className="container footer-top"><div><Brand/><p>Classic cars. Good people. A Bellflower tradition.</p></div><div className="footer-links"><Link to="/event-info">Event Info</Link><Link to="/about">About Us</Link><Link to="/contact">Get in touch <ArrowUpRight size={15}/></Link></div><a href="mailto:info@bellflower-car-show.com" className="footer-mail" aria-label="Email Bellflower Car Show"><Mail size={20}/></a></div><div className="container footer-bottom"><span>© 2026 Bellflower Car Show. All rights reserved.</span><span>Co-hosted by the City of Bellflower & Bellflower Lions Foundation</span></div></footer> }
+export function PageHeading({eyebrow,title,description}:{eyebrow:string,title:string,description:string}) {return <div className="page-heading container"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{description}</p></div>}
